@@ -1,0 +1,505 @@
+{
+  "id": "a1b2c3d4-0001-4000-8000-000000000001",
+  "realm": "hibit",
+  "displayName": "HiBit Platform",
+  "displayNameHtml": "<strong>HiBit</strong> Platform",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "registrationEmailAsUsername": false,
+  "rememberMe": false,
+  "verifyEmail": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": true,
+  "permanentLockout": false,
+  "maxFailureWaitSeconds": 900,
+  "minimumQuickLoginWaitSeconds": 60,
+  "waitIncrementSeconds": 60,
+  "quickLoginCheckMilliSeconds": 1000,
+  "maxDeltaTimeSeconds": 43200,
+  "failureFactor": 5,
+  "defaultRole": {
+    "id": "b2c3d4e5-0001-4000-8000-000000000010",
+    "name": "default-roles-hibit",
+    "description": "${role_default-roles}",
+    "composite": true,
+    "clientRole": false,
+    "containerId": "a1b2c3d4-0001-4000-8000-000000000001"
+  },
+  "requiredCredentials": ["password"],
+  "passwordPolicy": "length(6)",
+  "accessTokenLifespan": 300,
+  "accessTokenLifespanForImplicitFlow": 900,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+  "ssoSessionIdleTimeoutRememberMe": 0,
+  "ssoSessionMaxLifespanRememberMe": 0,
+  "offlineSessionIdleTimeout": 2592000,
+  "offlineSessionMaxLifespanEnabled": false,
+  "accessCodeLifespan": 60,
+  "accessCodeLifespanUserAction": 300,
+  "accessCodeLifespanLogin": 1800,
+  "actionTokenGeneratedByAdminLifespan": 43200,
+  "actionTokenGeneratedByUserLifespan": 300,
+  "revokeRefreshToken": false,
+  "refreshTokenMaxReuse": 0,
+  "roles": {
+    "realm": [
+      {
+        "id": "c3d4e5f6-0001-4000-8000-000000000100",
+        "name": "admin",
+        "description": "Administrador da plataforma HiBit — acesso total",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "a1b2c3d4-0001-4000-8000-000000000001"
+      },
+      {
+        "id": "c3d4e5f6-0001-4000-8000-000000000101",
+        "name": "tecnico",
+        "description": "Técnico — executa chamados de assistência técnica",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "a1b2c3d4-0001-4000-8000-000000000001"
+      },
+      {
+        "id": "c3d4e5f6-0001-4000-8000-000000000102",
+        "name": "atendente",
+        "description": "Atendente HiBit — abre chamados no balcão",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "a1b2c3d4-0001-4000-8000-000000000001"
+      },
+      {
+        "id": "c3d4e5f6-0001-4000-8000-000000000103",
+        "name": "operador-caixa",
+        "description": "Operador de Caixa — lança movimentações e relatórios",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "a1b2c3d4-0001-4000-8000-000000000001"
+      },
+      {
+        "id": "b2c3d4e5-0001-4000-8000-000000000010",
+        "name": "default-roles-hibit",
+        "description": "${role_default-roles}",
+        "composite": true,
+        "composites": {
+          "realm": ["offline_access", "uma_authorization"]
+        },
+        "clientRole": false,
+        "containerId": "a1b2c3d4-0001-4000-8000-000000000001"
+      }
+    ]
+  },
+  "clientScopes": [
+    {
+      "id": "f6a7b8c9-0001-4000-8000-000000000400",
+      "name": "catalog:read",
+      "description": "Permite leitura do catálogo HiBit (produtos, categorias)",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "false"
+      },
+      "protocolMappers": [
+        {
+          "id": "a7b8c9d0-0001-4000-8000-000000000410",
+          "name": "audience-hb-catalog-service",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "hb-catalog-service",
+            "id.token.claim": "false",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "id": "f6a7b8c9-0001-4000-8000-000000000401",
+      "name": "catalog:write",
+      "description": "Permite criação/edição/remoção no catálogo HiBit",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "false"
+      },
+      "protocolMappers": [
+        {
+          "id": "a7b8c9d0-0001-4000-8000-000000000411",
+          "name": "audience-hb-catalog-service-write",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "hb-catalog-service",
+            "id.token.claim": "false",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "id": "f6a7b8c9-0001-4000-8000-000000000402",
+      "name": "support:read",
+      "description": "Permite leitura de chamados de assistência técnica",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "false"
+      },
+      "protocolMappers": [
+        {
+          "id": "a7b8c9d0-0001-4000-8000-000000000412",
+          "name": "audience-hb-support-service",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "hb-support-service",
+            "id.token.claim": "false",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "id": "f6a7b8c9-0001-4000-8000-000000000403",
+      "name": "support:write",
+      "description": "Permite criação/edição/atualização de chamados",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "false"
+      },
+      "protocolMappers": [
+        {
+          "id": "a7b8c9d0-0001-4000-8000-000000000413",
+          "name": "audience-hb-support-service-write",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "hb-support-service",
+            "id.token.claim": "false",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "id": "f6a7b8c9-0001-4000-8000-000000000404",
+      "name": "cashier:read",
+      "description": "Permite leitura de lançamentos e relatórios de caixa",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "false"
+      },
+      "protocolMappers": [
+        {
+          "id": "a7b8c9d0-0001-4000-8000-000000000414",
+          "name": "audience-hb-cashier-service",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "hb-cashier-service",
+            "id.token.claim": "false",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "id": "f6a7b8c9-0001-4000-8000-000000000405",
+      "name": "cashier:write",
+      "description": "Permite registrar entradas/saídas e fechamentos de caixa",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "false"
+      },
+      "protocolMappers": [
+        {
+          "id": "a7b8c9d0-0001-4000-8000-000000000415",
+          "name": "audience-hb-cashier-service-write",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "hb-cashier-service",
+            "id.token.claim": "false",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    }
+  ],
+  "clients": [
+    {
+      "id": "d4e5f6a7-0001-4000-8000-000000000200",
+      "clientId": "hb-catalog-service",
+      "name": "HiBit Catalog Service (backend)",
+      "description": "Serviço backend de catálogo — acessado via client credentials por outros serviços",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "dev-catalog-secret",
+      "clientAuthenticatorType": "client-secret",
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "redirectUris": [],
+      "webOrigins": [],
+      "fullScopeAllowed": true,
+      "attributes": {
+        "use.refresh.tokens": "false",
+        "client_credentials.use_refresh_token": "false"
+      },
+      "defaultClientScopes": ["web-origins", "profile", "roles", "email", "catalog:read", "catalog:write"],
+      "optionalClientScopes": ["address", "phone", "offline_access", "microprofile-jwt"]
+    },
+    {
+      "id": "d4e5f6a7-0001-4000-8000-000000000201",
+      "clientId": "hb-catalog-web",
+      "name": "HiBit Catalog Web (SPA)",
+      "description": "Frontend Angular do catálogo — public client com PKCE",
+      "enabled": true,
+      "publicClient": true,
+      "clientAuthenticatorType": "client-secret",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "redirectUris": ["http://localhost:4200/*"],
+      "webOrigins": ["http://localhost:4200"],
+      "fullScopeAllowed": true,
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:4200/*"
+      },
+      "defaultClientScopes": ["web-origins", "profile", "roles", "email", "catalog:read", "catalog:write"],
+      "optionalClientScopes": ["address", "phone", "offline_access", "microprofile-jwt"]
+    },
+    {
+      "id": "d4e5f6a7-0001-4000-8000-000000000202",
+      "clientId": "hb-support-service",
+      "name": "HiBit Support Service (backend)",
+      "description": "Serviço backend de chamados — acessado via client credentials",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "dev-support-secret",
+      "clientAuthenticatorType": "client-secret",
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "redirectUris": [],
+      "webOrigins": [],
+      "fullScopeAllowed": true,
+      "attributes": {
+        "use.refresh.tokens": "false",
+        "client_credentials.use_refresh_token": "false"
+      },
+      "defaultClientScopes": ["web-origins", "profile", "roles", "email", "support:read", "support:write"],
+      "optionalClientScopes": ["address", "phone", "offline_access", "microprofile-jwt"]
+    },
+    {
+      "id": "d4e5f6a7-0001-4000-8000-000000000203",
+      "clientId": "hb-support-web",
+      "name": "HiBit Support Web (SPA)",
+      "description": "Frontend Angular de chamados — mobile-first, public PKCE",
+      "enabled": true,
+      "publicClient": true,
+      "clientAuthenticatorType": "client-secret",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "redirectUris": ["http://localhost:4201/*"],
+      "webOrigins": ["http://localhost:4201"],
+      "fullScopeAllowed": true,
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:4201/*"
+      },
+      "defaultClientScopes": ["web-origins", "profile", "roles", "email", "support:read", "support:write"],
+      "optionalClientScopes": ["address", "phone", "offline_access", "microprofile-jwt"]
+    },
+    {
+      "id": "d4e5f6a7-0001-4000-8000-000000000204",
+      "clientId": "hb-cashier-service",
+      "name": "HiBit Cashier Service (backend)",
+      "description": "Serviço backend de caixa — recebe lançamentos via client credentials",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "dev-cashier-secret",
+      "clientAuthenticatorType": "client-secret",
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "redirectUris": [],
+      "webOrigins": [],
+      "fullScopeAllowed": true,
+      "attributes": {
+        "use.refresh.tokens": "false",
+        "client_credentials.use_refresh_token": "false"
+      },
+      "defaultClientScopes": ["web-origins", "profile", "roles", "email", "cashier:read", "cashier:write"],
+      "optionalClientScopes": ["address", "phone", "offline_access", "microprofile-jwt"]
+    },
+    {
+      "id": "d4e5f6a7-0001-4000-8000-000000000205",
+      "clientId": "hb-cashier-web",
+      "name": "HiBit Cashier Web (SPA)",
+      "description": "Frontend Angular de caixa — public PKCE",
+      "enabled": true,
+      "publicClient": true,
+      "clientAuthenticatorType": "client-secret",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "redirectUris": ["http://localhost:4202/*"],
+      "webOrigins": ["http://localhost:4202"],
+      "fullScopeAllowed": true,
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:4202/*"
+      },
+      "defaultClientScopes": ["web-origins", "profile", "roles", "email", "cashier:read", "cashier:write"],
+      "optionalClientScopes": ["address", "phone", "offline_access", "microprofile-jwt"]
+    }
+  ],
+  "users": [
+    {
+      "id": "e5f6a7b8-0001-4000-8000-000000000300",
+      "username": "admin-hibit",
+      "email": "admin@hibit.local",
+      "firstName": "Admin",
+      "lastName": "HiBit",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["admin", "default-roles-hibit"],
+      "clientRoles": {},
+      "groups": []
+    },
+    {
+      "id": "e5f6a7b8-0001-4000-8000-000000000301",
+      "username": "tech1",
+      "email": "tech1@hibit.local",
+      "firstName": "Tecnico",
+      "lastName": "Um",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "tech123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["tecnico", "default-roles-hibit"],
+      "clientRoles": {},
+      "groups": []
+    },
+    {
+      "id": "e5f6a7b8-0001-4000-8000-000000000302",
+      "username": "atendente1",
+      "email": "atendente1@hibit.local",
+      "firstName": "Atendente",
+      "lastName": "Um",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "atend123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["atendente", "default-roles-hibit"],
+      "clientRoles": {},
+      "groups": []
+    },
+    {
+      "id": "e5f6a7b8-0001-4000-8000-000000000303",
+      "username": "caixa1",
+      "email": "caixa1@hibit.local",
+      "firstName": "Operador",
+      "lastName": "Caixa",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "caixa123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["operador-caixa", "default-roles-hibit"],
+      "clientRoles": {},
+      "groups": []
+    }
+  ],
+  "scopeMappings": [],
+  "clientScopeMappings": {},
+  "defaultDefaultClientScopes": [
+    "role_list",
+    "profile",
+    "email",
+    "roles",
+    "web-origins"
+  ],
+  "defaultOptionalClientScopes": [
+    "offline_access",
+    "address",
+    "phone",
+    "microprofile-jwt"
+  ],
+  "browserSecurityHeaders": {
+    "contentSecurityPolicyReportOnly": "",
+    "xContentTypeOptions": "nosniff",
+    "xRobotsTag": "none",
+    "xFrameOptions": "SAMEORIGIN",
+    "contentSecurityPolicy": "frame-src 'self'; frame-ancestors 'self'; object-src 'none';",
+    "xXSSProtection": "1; mode=block",
+    "strictTransportSecurity": "max-age=31536000; includeSubDomains"
+  },
+  "smtpServer": {},
+  "eventsEnabled": false,
+  "eventsListeners": ["jboss-logging"],
+  "enabledEventTypes": [],
+  "adminEventsEnabled": false,
+  "adminEventsDetailsEnabled": false,
+  "internationalizationEnabled": true,
+  "supportedLocales": ["pt-BR", "en"],
+  "defaultLocale": "pt-BR"
+}

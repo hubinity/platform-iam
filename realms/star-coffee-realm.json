@@ -1,0 +1,271 @@
+{
+  "id": "a1b2c3d4-0002-4000-8000-000000000001",
+  "realm": "star-coffee",
+  "displayName": "Star Coffee Platform",
+  "displayNameHtml": "<strong>Star Coffee</strong> Platform",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "registrationEmailAsUsername": false,
+  "rememberMe": false,
+  "verifyEmail": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": true,
+  "permanentLockout": false,
+  "maxFailureWaitSeconds": 900,
+  "minimumQuickLoginWaitSeconds": 60,
+  "waitIncrementSeconds": 60,
+  "quickLoginCheckMilliSeconds": 1000,
+  "maxDeltaTimeSeconds": 43200,
+  "failureFactor": 5,
+  "defaultRole": {
+    "id": "b2c3d4e5-0002-4000-8000-000000000010",
+    "name": "default-roles-star-coffee",
+    "description": "${role_default-roles}",
+    "composite": true,
+    "clientRole": false,
+    "containerId": "a1b2c3d4-0002-4000-8000-000000000001"
+  },
+  "requiredCredentials": ["password"],
+  "passwordPolicy": "length(6)",
+  "accessTokenLifespan": 300,
+  "accessTokenLifespanForImplicitFlow": 900,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+  "ssoSessionIdleTimeoutRememberMe": 0,
+  "ssoSessionMaxLifespanRememberMe": 0,
+  "offlineSessionIdleTimeout": 2592000,
+  "offlineSessionMaxLifespanEnabled": true,
+  "offlineSessionMaxLifespan": 2592000,
+  "accessCodeLifespan": 60,
+  "accessCodeLifespanUserAction": 300,
+  "accessCodeLifespanLogin": 1800,
+  "actionTokenGeneratedByAdminLifespan": 43200,
+  "actionTokenGeneratedByUserLifespan": 300,
+  "revokeRefreshToken": false,
+  "refreshTokenMaxReuse": 0,
+  "roles": {
+    "realm": [
+      {
+        "id": "c3d4e5f6-0002-4000-8000-000000000100",
+        "name": "admin",
+        "description": "Administrador da plataforma Star Coffee — acesso total",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "a1b2c3d4-0002-4000-8000-000000000001"
+      },
+      {
+        "id": "c3d4e5f6-0002-4000-8000-000000000101",
+        "name": "gerente-cafeteria",
+        "description": "Gerente da cafeteria — visão de pedidos, fechamento e relatórios",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "a1b2c3d4-0002-4000-8000-000000000001"
+      },
+      {
+        "id": "c3d4e5f6-0002-4000-8000-000000000102",
+        "name": "operador-caixa",
+        "description": "Operador de Caixa — atende o totem e confirma pedidos",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "a1b2c3d4-0002-4000-8000-000000000001"
+      },
+      {
+        "id": "b2c3d4e5-0002-4000-8000-000000000010",
+        "name": "default-roles-star-coffee",
+        "description": "${role_default-roles}",
+        "composite": true,
+        "composites": {
+          "realm": ["offline_access", "uma_authorization"]
+        },
+        "clientRole": false,
+        "containerId": "a1b2c3d4-0002-4000-8000-000000000001"
+      }
+    ]
+  },
+  "clientScopes": [
+    {
+      "id": "f6a7b8c9-0002-4000-8000-000000000400",
+      "name": "catalog:read",
+      "description": "Permite leitura do catálogo HiBit (consumido por sc-order-service via cross-realm pela gateway)",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "false"
+      },
+      "protocolMappers": [
+        {
+          "id": "a7b8c9d0-0002-4000-8000-000000000410",
+          "name": "audience-hb-catalog-service",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "hb-catalog-service",
+            "id.token.claim": "false",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    }
+  ],
+  "clients": [
+    {
+      "id": "d4e5f6a7-0002-4000-8000-000000000200",
+      "clientId": "sc-order-service",
+      "name": "Star Coffee Order Service (backend)",
+      "description": "Backend de pedidos do totem — consome catálogo HiBit via client credentials + catalog:read",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "dev-order-secret",
+      "clientAuthenticatorType": "client-secret",
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "redirectUris": [],
+      "webOrigins": [],
+      "fullScopeAllowed": true,
+      "attributes": {
+        "use.refresh.tokens": "false",
+        "client_credentials.use_refresh_token": "false"
+      },
+      "defaultClientScopes": ["web-origins", "profile", "roles", "email", "catalog:read"],
+      "optionalClientScopes": ["address", "phone", "offline_access", "microprofile-jwt"]
+    },
+    {
+      "id": "d4e5f6a7-0002-4000-8000-000000000201",
+      "clientId": "sc-totem-web",
+      "name": "Star Coffee Totem Web (Kiosk PWA)",
+      "description": "Frontend Angular PWA do totem — public PKCE com redirect na porta 4203",
+      "enabled": true,
+      "publicClient": true,
+      "clientAuthenticatorType": "client-secret",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "redirectUris": ["http://localhost:4203/*"],
+      "webOrigins": ["http://localhost:4203"],
+      "fullScopeAllowed": true,
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:4203/*"
+      },
+      "defaultClientScopes": ["web-origins", "profile", "roles", "email"],
+      "optionalClientScopes": ["address", "phone", "offline_access", "microprofile-jwt"]
+    },
+    {
+      "id": "d4e5f6a7-0002-4000-8000-000000000202",
+      "clientId": "device-totem",
+      "name": "Star Coffee Device Totem (kiosk device identity)",
+      "description": "Cliente confidencial do dispositivo totem — usa password grant para bootstrap e mantém sessão longa (30d) via offline tokens",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "dev-device-totem-secret",
+      "clientAuthenticatorType": "client-secret",
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "authorizationServicesEnabled": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "redirectUris": [],
+      "webOrigins": [],
+      "fullScopeAllowed": true,
+      "attributes": {
+        "client.session.idle.timeout": "2592000",
+        "client.session.max.lifespan": "2592000",
+        "client.offline.session.idle.timeout": "2592000",
+        "client.offline.session.max.lifespan": "2592000",
+        "access.token.lifespan": "900",
+        "use.refresh.tokens": "true"
+      },
+      "defaultClientScopes": ["web-origins", "profile", "roles", "email"],
+      "optionalClientScopes": ["address", "phone", "offline_access", "microprofile-jwt"]
+    }
+  ],
+  "users": [
+    {
+      "id": "e5f6a7b8-0002-4000-8000-000000000300",
+      "username": "admin-sc",
+      "email": "admin@starcoffee.local",
+      "firstName": "Admin",
+      "lastName": "StarCoffee",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["admin", "default-roles-star-coffee"],
+      "clientRoles": {},
+      "groups": []
+    },
+    {
+      "id": "e5f6a7b8-0002-4000-8000-000000000301",
+      "username": "gerente1",
+      "email": "gerente1@starcoffee.local",
+      "firstName": "Gerente",
+      "lastName": "Um",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "ger123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["gerente-cafeteria", "default-roles-star-coffee"],
+      "clientRoles": {},
+      "groups": []
+    }
+  ],
+  "scopeMappings": [],
+  "clientScopeMappings": {},
+  "defaultDefaultClientScopes": [
+    "role_list",
+    "profile",
+    "email",
+    "roles",
+    "web-origins"
+  ],
+  "defaultOptionalClientScopes": [
+    "offline_access",
+    "address",
+    "phone",
+    "microprofile-jwt",
+    "catalog:read"
+  ],
+  "browserSecurityHeaders": {
+    "contentSecurityPolicyReportOnly": "",
+    "xContentTypeOptions": "nosniff",
+    "xRobotsTag": "none",
+    "xFrameOptions": "SAMEORIGIN",
+    "contentSecurityPolicy": "frame-src 'self'; frame-ancestors 'self'; object-src 'none';",
+    "xXSSProtection": "1; mode=block",
+    "strictTransportSecurity": "max-age=31536000; includeSubDomains"
+  },
+  "smtpServer": {},
+  "eventsEnabled": false,
+  "eventsListeners": ["jboss-logging"],
+  "enabledEventTypes": [],
+  "adminEventsEnabled": false,
+  "adminEventsDetailsEnabled": false,
+  "internationalizationEnabled": true,
+  "supportedLocales": ["pt-BR", "en"],
+  "defaultLocale": "pt-BR"
+}
